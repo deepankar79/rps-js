@@ -1,14 +1,46 @@
-img {
-  width: 30%;
-  height: auto;
-}
-
 ul {
   list-style-type: none;
   display: flex;
   gap: 10px;
 }
 
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
 .btn {
   font-size: larger;
+}
+
+h1 {
+  text-align: center;
+  font-size: 5rem;
+}
+.opp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.display1,
+.display2 {
+  display: flex;
+  gap: 25px;
+}
+
+.display1 img {
+  width: 150px;
+  height: 150px;
+}
+
+.text {
+  font-size: 4rem;
+  font-weight: 300;
+  color: #c7365f;
+  /* margin-bottom: auto; */
+}
+#dspresult {
+  font-size: 4rem;
+  font-weight: 300;
+  text-align: center;
 }
