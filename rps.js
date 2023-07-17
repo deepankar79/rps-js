@@ -4,25 +4,54 @@ function computerHand(rng) {
   else return "scissors";
 }
 
+function play(playerSelection) {
+  let rng = Math.trunc(Math.random() * 3);
+  const computerSelection = computerHand(rng);
+  playRound(playerSelection, computerSelection);
+}
+
 function playRound(playerSelection, computerSelection) {
-  playerSelection.toLowerCase();
-  if (playerSelection === computerSelection) console.log("DRAW");
-  else if (playerSelection === "rock" && computerSelection === "paper")
+  const playerSelectionOrdered = playerSelection.toLowerCase();
+  if (playerSelectionOrdered === computerSelection) console.log("DRAW");
+  else if (playerSelectionOrdered === "rock" && computerSelection === "paper")
     console.log("You lose");
-  else if (playerSelection === "rock" && computerSelection === "scissors")
+  else if (
+    playerSelectionOrdered === "rock" &&
+    computerSelection === "scissors"
+  )
     console.log("You win");
-  else if (playerSelection === "paper" && computerSelection === "rock")
+  else if (playerSelectionOrdered === "paper" && computerSelection === "rock")
     console.log("You win");
-  else if (playerSelection === "paper" && computerSelection === "scissors")
+  else if (
+    playerSelectionOrdered === "paper" &&
+    computerSelection === "scissors"
+  )
     console.log("You loose");
-  else if (playerSelection === "scissors" && computerSelection === "rock")
+  else if (
+    playerSelectionOrdered === "scissors" &&
+    computerSelection === "rock"
+  )
     console.log("You loose");
-  else if (playerSelection === "scissors" && computerSelection === "paper")
+  else if (
+    playerSelectionOrdered === "scissors" &&
+    computerSelection === "paper"
+  )
     console.log("You win");
 }
 
-const playerSelection = prompt("Enter your hand");
-let rng = Math.trunc(Math.random() * 3);
-const computerSelection = computerHand(rng);
-console.log(computerSelection);
-playRound(playerSelection, computerSelection);
+// const playerSelection = prompt("Enter your hand");
+const btnR = document.querySelector(".btnR");
+const btnP = document.querySelector(".btnP");
+const btnS = document.querySelector(".btnS");
+btnR.addEventListener("click", function (e) {
+  const choice = document.querySelector(".btnR").textContent;
+  play(choice);
+});
+btnP.addEventListener("click", function (e) {
+  const choice = document.querySelector(".btnP").textContent;
+  play(choice);
+});
+btnS.addEventListener("click", function (e) {
+  const choice = document.querySelector(".btnS").textContent;
+  play(choice);
+});

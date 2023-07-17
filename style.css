@@ -1,0 +1,14 @@
+img {
+  width: 30%;
+  height: auto;
+}
+
+ul {
+  list-style-type: none;
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  font-size: larger;
+}
