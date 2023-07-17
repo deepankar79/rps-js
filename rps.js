@@ -4,6 +4,7 @@ cmpscore = plrscore = 0;
 const btnR = document.querySelector(".btnR");
 const btnP = document.querySelector(".btnP");
 const btnS = document.querySelector(".btnS");
+const btnReset = document.querySelector(".reset");
 const phand = document.querySelector(".phand");
 const chand = document.querySelector(".chand");
 
@@ -23,10 +24,18 @@ function play(pSelection) {
   evaluate(crrsScore);
 }
 
-function reset() {
+function resetGame() {
   cmpscore = plrscore = 0;
   document.getElementById("pscore").textContent = 0;
   document.getElementById("cscore").textContent = 0;
+  phand.src = "wait.png";
+  chand.src = "wait.png";
+  btnR.disabled = btnS.disabled = btnP.disabled = false;
+  btnR.style.opacity = btnP.style.opacity = btnS.style.opacity = 1;
+  btnR.classList.add("btnh");
+  btnP.classList.add("btnh");
+  btnS.classList.add("btnh");
+  document.getElementById("dspresult").textContent = "First to score 5 wins";
 }
 
 function displayhand(playerSelection, computerSelection) {
@@ -47,30 +56,38 @@ function evaluate(crrsScore) {
     document.getElementById("cscore").textContent = cmpscore;
   }
 
-  if (cmpscore === 5) {
-    alert("Computer wins");
-    reset();
-  } else if (plrscore === 5) {
-    alert("You win");
-    reset();
+  if (cmpscore === 5 || plrscore === 5) {
+    btnR.disabled = btnS.disabled = btnP.disabled = true;
+    btnR.style.opacity = btnP.style.opacity = btnS.style.opacity = 0.6;
+    btnR.classList.remove("btnh");
+    btnP.classList.remove("btnh");
+    btnS.classList.remove("btnh");
+    if (cmpscore === 5)
+      document.getElementById("dspresult").textContent =
+        "Game over you lost the tie";
+    else
+      document.getElementById("dspresult").textContent =
+        "Game over you won the tie";
   }
 }
 
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) return 0;
-  else if (playerSelection === "rock" && computerSelection === "paper")
+  else if (
+    (playerSelection === "rock" && computerSelection === "paper") ||
+    (playerSelection === "paper" && computerSelection === "scissors") ||
+    (playerSelection === "scissors" && computerSelection === "rock")
+  )
     return 2;
-  else if (playerSelection === "rock" && computerSelection === "scissors")
-    return 1;
-  else if (playerSelection === "paper" && computerSelection === "rock")
-    return 1;
-  else if (playerSelection === "paper" && computerSelection === "scissors")
-    return 2;
-  else if (playerSelection === "scissors" && computerSelection === "rock")
-    return 2;
-  else if (playerSelection === "scissors" && computerSelection === "paper")
+  else if (
+    (playerSelection === "rock" && computerSelection === "scissors") ||
+    (playerSelection === "paper" && computerSelection === "rock") ||
+    (playerSelection === "scissors" && computerSelection === "paper")
+  )
     return 1;
 }
+
+//Events
 
 btnR.addEventListener("click", function (e) {
   const choice = document.querySelector(".btnR").textContent;
@@ -84,3 +101,5 @@ btnS.addEventListener("click", function (e) {
   const choice = document.querySelector(".btnS").textContent;
   play(choice);
 });
+
+btnReset.addEventListener("click", resetGame);
