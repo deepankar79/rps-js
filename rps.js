@@ -1,6 +1,8 @@
 const btnR = document.querySelector(".btnR");
 const btnP = document.querySelector(".btnP");
 const btnS = document.querySelector(".btnS");
+const phand = document.querySelector(".phand");
+const chand = document.querySelector(".chand");
 
 function computerHand(rng) {
   if (rng === 0) return "rock";
@@ -8,55 +10,48 @@ function computerHand(rng) {
   else return "scissors";
 }
 
-function play(playerSelection) {
+function play(pSelection) {
+  const playerSelection = pSelection.toLowerCase();
   let crrsScore;
   let rng = Math.trunc(Math.random() * 3);
   const computerSelection = computerHand(rng);
+  displayhand(playerSelection, computerSelection);
   crrsScore = playRound(playerSelection, computerSelection);
   evaluate(crrsScore);
 }
 
+function displayhand(playerSelection, computerSelection) {
+  phand.src = `${playerSelection}.png`;
+  chand.src = `${computerSelection}.png`;
+}
+
 function evaluate(crrsScore) {
   if (crrsScore === 0) {
-    console.log("You Draw");
     document.getElementById("dspresult").textContent = "You draw";
   } else if (crrsScore === 1) {
-    console.log("You win");
     document.getElementById("dspresult").textContent = "You win";
     plrscore++;
+    document.getElementById("pscore").textContent = plrscore;
   } else {
-    console.log("You lose");
     document.getElementById("dspresult").textContent = "You lose";
     cmpscore++;
+    document.getElementById("cscore").textContent = cmpscore;
   }
 }
 
 function playRound(playerSelection, computerSelection) {
-  const playerSelectionOrdered = playerSelection.toLowerCase();
-  if (playerSelectionOrdered === computerSelection) return 0;
-  else if (playerSelectionOrdered === "rock" && computerSelection === "paper")
+  if (playerSelection === computerSelection) return 0;
+  else if (playerSelection === "rock" && computerSelection === "paper")
     return 2;
-  else if (
-    playerSelectionOrdered === "rock" &&
-    computerSelection === "scissors"
-  )
+  else if (playerSelection === "rock" && computerSelection === "scissors")
     return 1;
-  else if (playerSelectionOrdered === "paper" && computerSelection === "rock")
+  else if (playerSelection === "paper" && computerSelection === "rock")
     return 1;
-  else if (
-    playerSelectionOrdered === "paper" &&
-    computerSelection === "scissors"
-  )
+  else if (playerSelection === "paper" && computerSelection === "scissors")
     return 2;
-  else if (
-    playerSelectionOrdered === "scissors" &&
-    computerSelection === "rock"
-  )
+  else if (playerSelection === "scissors" && computerSelection === "rock")
     return 2;
-  else if (
-    playerSelectionOrdered === "scissors" &&
-    computerSelection === "paper"
-  )
+  else if (playerSelection === "scissors" && computerSelection === "paper")
     return 1;
 }
 
