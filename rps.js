@@ -1,3 +1,6 @@
+let cmpscore, plrscore;
+cmpscore = plrscore = 0;
+
 const btnR = document.querySelector(".btnR");
 const btnP = document.querySelector(".btnP");
 const btnS = document.querySelector(".btnS");
@@ -20,6 +23,12 @@ function play(pSelection) {
   evaluate(crrsScore);
 }
 
+function reset() {
+  cmpscore = plrscore = 0;
+  document.getElementById("pscore").textContent = 0;
+  document.getElementById("cscore").textContent = 0;
+}
+
 function displayhand(playerSelection, computerSelection) {
   phand.src = `${playerSelection}.png`;
   chand.src = `${computerSelection}.png`;
@@ -36,6 +45,14 @@ function evaluate(crrsScore) {
     document.getElementById("dspresult").textContent = "You lose";
     cmpscore++;
     document.getElementById("cscore").textContent = cmpscore;
+  }
+
+  if (cmpscore === 5) {
+    alert("Computer wins");
+    reset();
+  } else if (plrscore === 5) {
+    alert("You win");
+    reset();
   }
 }
 
@@ -54,9 +71,6 @@ function playRound(playerSelection, computerSelection) {
   else if (playerSelection === "scissors" && computerSelection === "paper")
     return 1;
 }
-
-let cmpscore, plrscore;
-cmpscore = plrscore = 0;
 
 btnR.addEventListener("click", function (e) {
   const choice = document.querySelector(".btnR").textContent;
